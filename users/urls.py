@@ -22,5 +22,7 @@ from users import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', include("product.urls")),
+    path('logout',views.logoutUser)
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

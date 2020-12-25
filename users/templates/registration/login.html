@@ -1,0 +1,5 @@
+<form method="POST" class="form w-100">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success w-100">Iniciar Sesion</button>
+</form>
