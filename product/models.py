@@ -1,3 +1,35 @@
 from django.db import models
 
+def name_of_image_product(instance,filename):
+    return 'products/{0}/{1}'.format(instance.name,filename)
 # Create your models here.
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=500)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name+" / "+self.description
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,null=False,blank=False)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=500)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name+" / "+str(int(self.is_active))
+
+class Product(models.Model):
+    category = models.ForeignKey(SubCategory,on_delete=models.CASCADE,null=False,blank=False)
+    name = models.CharField(max_length=50)
+    barcode = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.FileField(upload_to=name_of_image_product)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name

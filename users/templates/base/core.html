@@ -7,10 +7,13 @@
     <title>Nuestro titulo</title>
     <link rel="stylesheet" href="{% static '/css/bootstrap/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static '/css/fontawesome-free/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static '/css/index/index.css'%}">
 </head>
 <body>
-    {%block body%}
-    {%endblock%}
+    <div class="container">
+        {%block body%}
+        {%endblock%}
+    </div>
     <script src="{%static '/js/jquery/jquery.js'%}"></script>
     <script src="{%static '/js/bootstrap/bootstrap.min.js'%}"></script>
 </body>
