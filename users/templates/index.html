@@ -1,7 +1,35 @@
 {% extends "base/core.html"%}
 {%block body%}
-<h1>Hola Mundo!</h1>
-{{variable}}
 <br/>
-<a href="/logout" class="btn btn-warning">Salir</a>
+<div class="row">
+    <div class="col-6 text-center">
+        <h1>Bienvenido a tu bodega</h1>
+    </div>
+    <div class="col-6 text-center">
+        <a href="/logout" class="btn btn-warning w-25">Salir</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre Producto</th>
+            <th>Categoria</th>
+            <th>Stock</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for item in variable%}
+            <tr>
+                <td>{{item.product.name}}</td>
+                <td>{{item.product.category.name}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{item.product.price}}</td>
+            </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+<br/>
+
 {%endblock%}

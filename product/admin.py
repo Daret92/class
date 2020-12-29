@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Category,Product,SubCategory
+from product.models import Category,Product,SubCategory,ProductInventory
 from product.forms import ProductForm
 # Register your models here.
 
@@ -12,4 +12,9 @@ class CategoryAdmin(admin.ModelAdmin):
     inlines = [SubCategoriaInline,]
     
 admin.site.register(Category,CategoryAdmin)
-admin.site.register(Product)
+
+class ProductAdmin(admin.ModelAdmin):
+    form = ProductForm
+
+admin.site.register(Product,ProductAdmin)
+admin.site.register(ProductInventory)

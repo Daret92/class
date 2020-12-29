@@ -3,11 +3,13 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from product.models import ProductInventory
 
 @login_required(login_url='/accounts/login/')
 def index(request):
+    obj = ProductInventory.objects.all()
     context={
-        "variable": "Hola Mundo desde Back"
+        "variable": obj
     }
     return render(request,'index.html',context)
 
