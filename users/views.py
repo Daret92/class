@@ -13,6 +13,10 @@ def index(request):
     }
     return render(request,'index.html',context)
 
+def addCar(request):
+    print(request.GET)
+    return JsonResponse({'success':True,'mensaje':"Ocurrio un error al iniciar sesion"})
+
 def logoutUser(request):
     logout(request)
     return redirect("/")

@@ -9,27 +9,79 @@
         <a href="/logout" class="btn btn-warning w-25">Salir</a>
     </div>
 </div>
-<table class="table">
+<table class="table" id="tablaProduc">
     <thead>
         <tr>
             <th>Nombre Producto</th>
             <th>Categoria</th>
             <th>Stock</th>
             <th>Precio</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {%for item in variable%}
             <tr>
-                <td>{{item.product.name}}</td>
+                <td >{{item.product.name}}</td>
                 <td>{{item.product.category.name}}</td>
                 <td>{{item.stock}}</td>
                 <td>{{item.product.price}}</td>
+                <td class="w-25">
+                    <div class="row">
+                        <div class="col-10">
+                            <input type="number" class="form-control totalProduct" max="{{item.stock}}" data-maxp="{{item.stock}}">
+                        </div>
+                        <div class="col-2">
+                            <span class="btn btn-info addCar" data-idproduct="{{item.product.id}}"><i class="fas fa-plus-circle"></i></span>
+                        </div>
+                    </div>
+                </td>
             </tr>
         {%endfor%}
     </tbody>
 </table>
+<input type="text" id="msj" style="visibility: hidden">
 
 <br/>
 
+{%endblock%}
+{%block js%}
+    <script>
+        $(document).ready(function(){
+            $('#tablaProduc').DataTable();
+
+            $('.totalProduct').on("input",function(){
+                if( $(this).val() > parseFloat($(this).data("maxp"))){
+                    $(this).val(parseFloat($(this).data("maxp")))
+                }
+            });
+
+            $('.addCar').on("click",function(){
+                var totalproduct = $(this).parent().parent().find(".totalProduct");
+                $.ajax({
+                    //data:{
+                      //  total:totalproduct,
+                       // pk:$(this).data("idproduct")
+                    //},
+                    type:'GET',
+                    //dataType:'json',
+                    url:'/add_car_user?total_product='+totalproduct.val()+'&&pk_product='+$(this).data("idproduct"),
+                    success:function(request){
+                        $('#msj').css("visibility","visible");
+                        $('#msj').val("funciono");
+                        console.log(request);
+                    },
+                    error:function(xhr,err){
+                        console.log(xhr.error);
+                        console.log(err);
+                    },
+                    complete:function(xhr,status){
+                        console.log("finalizo");
+                    }
+
+                })
+            });
+
+        });
+    </script>
 {%endblock%}
