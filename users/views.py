@@ -15,7 +15,7 @@ def index(request):
 
 def addCar(request):
     print(request.GET)
-    return JsonResponse({'success':True,'mensaje':"Ocurrio un error al iniciar sesion"})
+    return JsonResponse({'success':False,'mensaje':"Ocurrio un error al iniciar sesion"})
 
 def logoutUser(request):
     logout(request)
