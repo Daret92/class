@@ -65,7 +65,8 @@
                     //},
                     type:'GET',
                     //dataType:'json',
-                    url:'/add_car_user?total_product='+totalproduct.val()+'&&pk_product='+$(this).data("idproduct"),
+                    url:'/add_car_user?total_product='+totalproduct.val()+
+                    '&&pk_product='+$(this).data("idproduct"),
                     success:function(request){
                         $('#msj').css("visibility","visible");
                         $('#msj').val("funciono");
