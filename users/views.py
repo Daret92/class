@@ -25,12 +25,27 @@ def index(request):
 def addCar(request):
     try:
         carrito = carUser.objects.filter(user=request.user,is_pendient=True)
+        print(carrito)
         productoTmp = Product.objects.get(pk=request.GET.get("pk_product"))
+        stock = ProductInventory.objects.get(pk=request.GET.get("pk_product"))
+        print(stock.stock)
+
         if len(carrito) > 0:
             productoCarrito = productsCarUser.objects.filter(carUser=carrito.first(),product=productoTmp).first()
+
             if productoCarrito:
-                productoCarrito.total = productoCarrito.total+Decimal(request.GET.get("total_product"))
-                productoCarrito.save()
+                productinventory = ProductInventory.objects.get(pk=request.GET.get("pk_product"))
+
+                productoCarrito.total = productoCarrito.total+float(request.GET.get("total_product"))
+                print(request.GET.get("total_product"))
+                print(productoCarrito.total)
+                if stock.stock >= productoCarrito.total:
+                    productoCarrito.save()
+                else:
+                    productoCarrito.total = float(stock.stock)
+                    print(productoCarrito.total)
+                    productoCarrito.save()
+                    return  JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
             else:
                 productoCarrito = productsCarUser.objects.create(carUser=carrito.first(),product=productoTmp,total=request.GET.get("total_product"))
             return JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
@@ -39,6 +54,7 @@ def addCar(request):
             productoCarrito = productsCarUser.objects.create(carUser=carrito,product=productoTmp,total=request.GET.get("total_product"))
             return JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
     except Exception as e:
+        print(e)
         return JsonResponse({'success':False,'mensaje':"Ocurrio un error al integrar al carrito"})
 
 def logoutUser(request):
