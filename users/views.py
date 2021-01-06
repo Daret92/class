@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from product.models import ProductInventory,Product
 from users.models import productsCarUser,carUser
-from decimal import Decimal
+from decimal import *
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -29,7 +29,7 @@ def addCar(request):
         if len(carrito) > 0:
             productoCarrito = productsCarUser.objects.filter(carUser=carrito.first(),product=productoTmp).first()
             if productoCarrito:
-                productoCarrito.total = productoCarrito.total+Decimal(request.GET.get("total_product"))
+                productoCarrito.total = productoCarrito.total+float(request.GET.get("total_product"))
                 productoCarrito.save()
             else:
                 productoCarrito = productsCarUser.objects.create(carUser=carrito.first(),product=productoTmp,total=request.GET.get("total_product"))
@@ -39,6 +39,7 @@ def addCar(request):
             productoCarrito = productsCarUser.objects.create(carUser=carrito,product=productoTmp,total=request.GET.get("total_product"))
             return JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
     except Exception as e:
+        print(e)
         return JsonResponse({'success':False,'mensaje':"Ocurrio un error al integrar al carrito"})
 
 def logoutUser(request):
