@@ -1,3 +1,13 @@
-.container{
-
+.messages{
+    z-index: 9999;
+    position: absolute;
+    background-color: green;
+    padding: .5%;
+    color: white;
+}
+.closesMessage{
+    cursor: pointer;
+}
+.hiddens{
+    visibility: hidden;
 }

@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{% static '/css/index/index.css'%}">
 </head>
 <body>
+    {%block mensaje%}
+    {%endblock%}
+    {% if messages %}
+        {% include "partials/_message.html"%}
+    {% endif %}
     <div class="container">
         {%block body%}
         {%endblock%}
@@ -20,5 +25,13 @@
     <script src="{%static '/js/bootstrap/bootstrap.min.js'%}"></script>
     {%block js%}
     {%endblock%}
+    <script>
+        $(document).ready(function(){
+          $('.closesMessage').click(function(){
+            $('.messages').remove();
+          });
+          $('body').removeAttr("style");
+        }); 
+      </script>
 </body>
 </html>

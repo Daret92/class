@@ -10,5 +10,5 @@ class carUser(models.Model):
 class productsCarUser(models.Model):
     carUser = models.ForeignKey(carUser, on_delete=models.CASCADE, null=False, blank=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=False)
-    total = models.DecimalField(max_digits=4,decimal_places=3)
+    total = models.FloatField()
 
