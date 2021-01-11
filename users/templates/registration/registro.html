@@ -7,14 +7,11 @@
     <div class="row w-100 justify-content-md-center">
         <div class="col-5 text-center">
             <form method="POST" class="form w-100">
-                {{ form }}
+                {{ form.as_p }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-success w-100">Iniciar Sesion</button>
+                <button type="submit" class="btn btn-success w-100">Registrarte</button>
             </form>
-            <br/>
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <br/>
-            <a href="/new_user" class="btn btn-info">Registrate</a>
+            <a href="/" class="btn btn-info">Ya tienes un usuario Inicia Sesion</a>
         </div>
     </div>
 </div>

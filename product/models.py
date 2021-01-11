@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 
 def name_of_image_product(instance,filename):
     return 'products/{0}/{1}'.format(instance.name,filename)
+
+def name_of_xls(instance,filename):
+    return 'xls/{0}/{1}'.format(instance.user.name,filename)
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -55,4 +59,10 @@ class OrderBodyUser(models.Model):
     header = models.ForeignKey(OrderHeaderUser, on_delete=models.CASCADE, null=False, blank=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=False)
     total = models.DecimalField(max_digits=10,decimal_places=3)
-    
+
+class ProductXls(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    fileUp = models.FileField(upload_to=name_of_xls)
+    is_upload = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

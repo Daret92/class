@@ -7,6 +7,7 @@ from product.models import ProductInventory,Product
 from users.models import productsCarUser,carUser
 from django.contrib import messages
 from decimal import *
+from .forms import SignUpForm
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -22,6 +23,19 @@ def index(request):
         "productos":productos
     }
     return render(request,'index.html',context)
+
+def newUser(request):
+    form = SignUpForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            print(form)
+    context={
+        'form':form
+    }
+    return render(request,'registration/registro.html',context)
+    
+def editUser(request):
+    return render(request,'editUser.html')
 
 def addCar(request):
     try:

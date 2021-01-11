@@ -15,6 +15,14 @@
     {%endblock%}
     {% if messages %}
         {% include "partials/_message.html"%}
+        <script>
+          $(document).ready(function(){
+            $('.closesMessage').click(function(){
+              $('.messages').remove();
+            });
+            $('body').removeAttr("style");
+          }); 
+        </script>
     {% endif %}
     <div class="container">
         {%block body%}
@@ -25,13 +33,5 @@
     <script src="{%static '/js/bootstrap/bootstrap.min.js'%}"></script>
     {%block js%}
     {%endblock%}
-    <script>
-        $(document).ready(function(){
-          $('.closesMessage').click(function(){
-            $('.messages').remove();
-          });
-          $('body').removeAttr("style");
-        }); 
-      </script>
 </body>
 </html>
