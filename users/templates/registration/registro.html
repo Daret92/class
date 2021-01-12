@@ -3,16 +3,67 @@
 {%block mensaje%}
 {%endblock%}
 {%block body%}
-<div class="container w-100">
-    <div class="row w-100 justify-content-md-center">
-        <div class="col-5 text-center">
-            <form method="POST" class="form w-100">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <button type="submit" class="btn btn-success w-100">Registrarte</button>
-            </form>
+<br/>
+<br/>
+<br/>
+<div class="container w-100 d-flex align-items-center">
+    <div class="row w-100 justify-content-md-center ">
+        <div class="col-10 text-center">
+                <form method="POST" class="form w-100">
+                    <div class="row">
+                    {% csrf_token %}
+                    <div class="col-2">
+                        {{form.username.label_tag}}
+                    </div>
+                    <div class="col-4">
+                        {{form.username}}
+                        <small style="color: grey">{{ form.username.help_text }}</small>
+                    </div>
+                    <div class="col-2">
+                        {{form.email.label_tag}}
+                    </div>
+                    <div class="col-4">
+                        {{form.email}}
+                        <small style="color: grey">{{ form.email.help_text }}</small>
+                    </div>
+                    <div class="col-2">
+                        {{form.first_name.label_tag}}
+                    </div>
+                    <div class="col-4">
+                        {{form.first_name}}
+                        <small style="color: grey">{{ form.first_name.help_text }}</small>
+                    </div>
+                    <div class="col-2">
+                        {{form.last_name.label_tag}}
+                        <br/>
+                    </div>
+                    <div class="col-4">
+                        {{form.last_name}}
+                        <small style="color: grey">{{ form.last_name.help_text }}</small>
+                        <br/>
+                    </div>
+                    <div class="col-2">
+                        {{form.password1.label_tag}}
+                    </div>
+                    <div class="col-4">
+                        {{form.password1}}
+                        <small style="color: grey">{{ form.password1.help_text }}</small>
+                    </div>
+                    <div class="col-2">
+                        {{form.password2.label_tag}}
+                    </div>
+                    <div class="col-4">
+                        {{form.password2}}
+                        <small style="color: grey">{{ form.password2.help_text }}</small>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success w-50">Registrarte</button>
+                        <br/>
+                    </div>
+                </form>
+                
+                </div>
             <a href="/" class="btn btn-info">Ya tienes un usuario Inicia Sesion</a>
-        </div>
     </div>
 </div>
 {%endblock%}

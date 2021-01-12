@@ -3,11 +3,15 @@
 {%block mensaje%}
 {%endblock%}
 {%block body%}
-<div class="container w-100">
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
     <div class="row w-100 justify-content-md-center">
         <div class="col-5 text-center">
             <form method="POST" class="form w-100">
-                {{ form }}
+                {{ form.as_p }}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-success w-100">Iniciar Sesion</button>
             </form>
@@ -17,7 +21,12 @@
             <a href="/new_user" class="btn btn-info">Registrate</a>
         </div>
     </div>
-</div>
 {%endblock%}
 {%block js%}
+<script>
+    $(document).ready(function(){
+        $('#id_username').addClass("form-control");
+        $('#id_password').addClass("form-control");  
+  }); 
+</script>
 {%endblock%}

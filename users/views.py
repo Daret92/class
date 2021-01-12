@@ -17,6 +17,7 @@ def index(request):
         productos = productsCarUser.objects.filter(carUser=carrito)
     else:
         productos = None
+        
     context={
         "variable": obj,
         "carrito":carrito,
@@ -25,7 +26,7 @@ def index(request):
     return render(request,'index.html',context)
 
 def newUser(request):
-    form = SignUpForm(request.POST or None)
+    newform = newForm()
     if request.method == "POST":
         if form.is_valid():
             print(form)

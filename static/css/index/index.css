@@ -11,3 +11,9 @@
 .hiddens{
     visibility: hidden;
 }
+html,body{
+    height: 100vh;
+}
+.container{
+    min-height: 100%;
+}
