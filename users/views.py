@@ -75,11 +75,10 @@ def logoutUser(request):
 
 
 def customUser(request):
-    form = UpdateUpForm()
+    form = UpdateUpForm(instance=request.user)
     if request.method == "POST":
         form = UpdateUpForm(request.POST,instance=request.user)
         if form.is_valid():
-            obj = form.save(commit=False)
             obj.save()
             messages.add_message(request,messages.INFO, "Usuario Actualizado")
     context= {

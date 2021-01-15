@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
     def __init__(self,*args,**kwargs):
-        super(SignUpForm,self).__init__(*args,*kwargs)
+        super(SignUpForm,self).__init__(*args,**kwargs)
         for item in self.fields:
             self.fields[item].widget.attrs['class'] = 'form-control'
     class Meta:
@@ -13,7 +13,7 @@ class SignUpForm(UserCreationForm):
 
 class UpdateUpForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
-        super(UpdateUpForm,self).__init__(*args,*kwargs)
+        super(UpdateUpForm, self).__init__(*args, **kwargs)
         for item in self.fields:
             self.fields[item].widget.attrs['class'] = 'form-control'
     class Meta:
