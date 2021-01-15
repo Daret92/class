@@ -6,10 +6,15 @@ from django.contrib.auth import get_user_model
 Usuario = get_user_model()
 
 class SignUpForm(UserCreationForm):
-    def __init__(self,*args,**kwargs):
-        super(SignUpForm,self).__init__(*args,*kwargs)
-        for item in self.fields:
-            self.fields[item].widget.attrs['class'] = 'form-control'
+    # def __init__(self,*args,**kwargs):
+    #     super(SignUpForm,self).__init__(*args,*kwargs)
+    #     for item in self.fields:
+    #         self.fields[item].widget.attrs['class'] = 'form-control'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = User
         fields = ['username','email','password1','password2','first_name','last_name']

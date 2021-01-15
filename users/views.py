@@ -17,7 +17,7 @@ def index(request):
         productos = productsCarUser.objects.filter(carUser=carrito)
     else:
         productos = None
-        
+
     context={
         "variable": obj,
         "carrito":carrito,
@@ -26,15 +26,16 @@ def index(request):
     return render(request,'index.html',context)
 
 def newUser(request):
-    newform = newForm()
+    form = SignUpForm()
     if request.method == "POST":
+        print(request.POST)
         if form.is_valid():
             print(form)
     context={
         'form':form
     }
     return render(request,'registration/registro.html',context)
-    
+
 def editUser(request):
     return render(request,'editUser.html')
 
@@ -56,7 +57,7 @@ def addCar(request):
                 else:
                     #messages.add_message(request,messages.INFO,"Tu pedido supero nuestro Stock")
                     return  JsonResponse({'success':False,'mensaje':"Tu pedido supero nuestro stock"})
-                
+
                 return  JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
             else:
                 productoCarrito = productsCarUser.objects.create(carUser=carrito.first(),product=productoTmp,total=request.GET.get("total_product"))
