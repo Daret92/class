@@ -7,14 +7,20 @@
 </div>
 {%endblock%}
 {%block body%}
+<form method="POST">
 <div class="card">
     <div class="card-header">
         <a href="/edit_user">Para mayor seguridad cambia tu contraseña desde aqui</a>
     </div>
     <div class="card-body">
+        {%csrf_token%}
         {{form}}
     </div>
+    <div class="card-footer">
+        <button class="btn btn-success float-right" type="submit">Guardar</button>
+    </div>
 </div>
+</form>
 
 {%endblock%}
 {%block js%}

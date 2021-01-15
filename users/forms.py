@@ -1,9 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-
-Usuario = get_user_model()
 
 class SignUpForm(UserCreationForm):
     def __init__(self,*args,**kwargs):
@@ -20,7 +17,7 @@ class UpdateUpForm(forms.ModelForm):
         for item in self.fields:
             self.fields[item].widget.attrs['class'] = 'form-control'
     class Meta:
-        model = Usuario
+        model = User
         fields = ['username','email','first_name','last_name']
 
 class PasswordForm(forms.Form):

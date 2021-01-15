@@ -9,6 +9,7 @@ from django.contrib import messages
 from decimal import *
 from .forms import SignUpForm,UpdateUpForm,PasswordForm
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.models import User
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -35,17 +36,6 @@ def newUser(request):
     }
     return render(request,'registration/registro.html',context)
     
-def editUser(request):
-    form = PasswordForm()
-    if request.method == "POST":
-        form = PasswordForm(request.POST)
-        if form.is_valid():
-           if check_password(request.POST['contraseña_actual'],request.user.password):
-               request.user.set_password(request.POST["confirma_la_contraseña"])
-    context = {
-        "form":form 
-    }
-    return render(request,'user/editUser.html', context)
 
 def addCar(request):
     try:
@@ -86,7 +76,25 @@ def logoutUser(request):
 
 def customUser(request):
     form = UpdateUpForm()
+    if request.method == "POST":
+        form = UpdateUpForm(request.POST,instance=request.user)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            messages.add_message(request,messages.INFO, "Usuario Actualizado")
     context= {
         "form":form
     }
     return render(request,"user/custom.html",context)
+
+def editUser(request):
+    form = PasswordForm()
+    if request.method == "POST":
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+           if check_password(request.POST['contraseña_actual'],request.user.password):
+               request.user.set_password(request.POST["confirma_la_contraseña"])
+    context = {
+        "form":form 
+    }
+    return render(request,'user/editUser.html', context)
