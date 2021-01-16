@@ -26,8 +26,9 @@ urlpatterns = [
     path('', include("product.urls")),
     path('logout',views.logoutUser),
     path('add_car_user', views.addCar),
-    path('editUser', views.editUser),
     path('new_user', views.newUser),
+    path('custom_user', views.customUser),
+    path('edit_user', views.editUser),
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

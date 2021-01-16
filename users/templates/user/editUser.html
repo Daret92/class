@@ -1,0 +1,24 @@
+{% extends "base/core.html"%}
+{%load static%}
+{%block title%}Actualiza tu contraseña{%endblock%}
+{%block mensaje%}
+<div class="hiddens" id="mensajes">
+    {% include "partials/_message.html"%}
+</div>
+{%endblock%}
+{%block body%}
+<form method="POST">
+<div class="card">
+    <div class="card-body">
+        {% csrf_token %}
+            {{form}}
+            
+    </div>
+    <div class="card-footer text-center">
+        <button type="submit" class="btn btn-success w-25">Actualizar Contraseñas</button>  
+    </div>
+</div>
+</form>
+{%endblock%}
+{%block js%}
+{%endblock%}

@@ -7,7 +7,8 @@ from product.models import ProductInventory,Product
 from users.models import productsCarUser,carUser
 from django.contrib import messages
 from decimal import *
-from .forms import SignUpForm
+from .forms import SignUpForm,UpdateUpForm,PasswordForm
+from django.contrib.auth.hashers import check_password
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -37,7 +38,16 @@ def newUser(request):
     return render(request,'registration/registro.html',context)
 
 def editUser(request):
-    return render(request,'editUser.html')
+    form = PasswordForm()
+    if request.method == "POST":
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+           if check_password(request.POST['contraseña_actual'],request.user.password):
+               request.user.set_password(request.POST["confirma_la_contraseña"])
+    context = {
+        "form":form
+    }
+    return render(request,'user/editUser.html', context)
 
 def addCar(request):
     try:
@@ -74,3 +84,11 @@ def logoutUser(request):
     logout(request)
     messages.add_message(request,messages.INFO,"Sesion Cerrada")
     return redirect("/")
+
+
+def customUser(request):
+    form = UpdateUpForm()
+    context= {
+        "form":form
+    }
+    return render(request,"user/custom.html",context)
