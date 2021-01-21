@@ -19,6 +19,7 @@ def index(request):
         productos = productsCarUser.objects.filter(carUser=carrito)
     else:
         productos = None
+
     context={
         "variable": obj,
         "carrito":carrito,
@@ -27,15 +28,27 @@ def index(request):
     return render(request,'index.html',context)
 
 def newUser(request):
-    newform = newForm()
+    form = SignUpForm()
     if request.method == "POST":
+        print(request.POST)
         if form.is_valid():
             print(form)
     context={
         'form':form
     }
     return render(request,'registration/registro.html',context)
-    
+
+def editUser(request):
+    form = PasswordForm()
+    if request.method == "POST":
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+           if check_password(request.POST['contraseña_actual'],request.user.password):
+               request.user.set_password(request.POST["confirma_la_contraseña"])
+    context = {
+        "form":form
+    }
+    return render(request,'user/editUser.html', context)
 
 def addCar(request):
     try:
@@ -55,7 +68,7 @@ def addCar(request):
                 else:
                     #messages.add_message(request,messages.INFO,"Tu pedido supero nuestro Stock")
                     return  JsonResponse({'success':False,'mensaje':"Tu pedido supero nuestro stock"})
-                
+
                 return  JsonResponse({'success':True,'mensaje':"Agregado al carrito","pk_producto":productoCarrito.id,"name":productoCarrito.product.name,"total":productoCarrito.total})
             else:
                 productoCarrito = productsCarUser.objects.create(carUser=carrito.first(),product=productoTmp,total=request.GET.get("total_product"))
@@ -85,6 +98,8 @@ def customUser(request):
         "form":form
     }
     return render(request,"user/custom.html",context)
+<<<<<<< HEAD
+=======
 
 def editUser(request):
     form = PasswordForm()
@@ -95,6 +110,7 @@ def editUser(request):
                request.user.set_password(request.POST["confirma_la_contraseña"])
                messages.add_message(request,messages.INFO, "Contraseña Actualizada")
     context = {
-        "form":form 
+        "form":form
     }
     return render(request,'user/editUser.html', context)
+>>>>>>> 18c24a6c98d2785d54aca58d5fadc892b0fc3abe
