@@ -79,8 +79,8 @@ def customUser(request):
     if request.method == "POST":
         form = UpdateUpForm(request.POST,instance=request.user)
         if form.is_valid():
-            obj.save()
-            messages.add_message(request,messages.INFO, "Usuario Actualizado")
+            form.save()
+            messages.add_message(request,messages.WARNING, "Usuario Actualizado")
     context= {
         "form":form
     }
@@ -93,6 +93,7 @@ def editUser(request):
         if form.is_valid():
            if check_password(request.POST['contraseña_actual'],request.user.password):
                request.user.set_password(request.POST["confirma_la_contraseña"])
+               messages.add_message(request,messages.INFO, "Contraseña Actualizada")
     context = {
         "form":form 
     }

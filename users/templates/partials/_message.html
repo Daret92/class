@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-11 text-center">
         {% for message in messages %}
-          <h6><p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p></h6>
+          <h6><p{% if message.tags %} class=" {{ message.tags }}"{% endif %}>{{ message }}</p></h6>
         {% endfor %}
         <span id="mensajeId"></span>
       </div>

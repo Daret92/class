@@ -1,0 +1,32 @@
+{% extends "base/core.html"%}
+{%load static%}
+{%block mensaje%}
+<div class="hiddens" id="mensajes">
+    {% include "partials/_message.html"%}
+</div>
+{%endblock%}
+{%block body%}
+<div id="map"></div>
+{%endblock%}
+{%block js%}
+<style>
+    #map {
+      height: 500px;
+    }
+</style>
+<script>
+    let map;
+
+    function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: {lat:  19.4978, lng: -99.1269},
+        mapTypeId: 'satellite',
+        zoom: 8
+    });
+    }
+</script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+</script>
+
+
+{%endblock%}

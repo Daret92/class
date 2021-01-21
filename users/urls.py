@@ -24,6 +24,7 @@ urlpatterns = [
     path('', views.index),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include("product.urls")),
+    path('', include("excel.urls")),
     path('logout',views.logoutUser),
     path('add_car_user', views.addCar),
     path('new_user', views.newUser),

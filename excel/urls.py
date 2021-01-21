@@ -3,5 +3,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('maps',views.map)
+    path('upload/xls/<str:token>',views.uploadFile),
 ]

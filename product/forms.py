@@ -11,7 +11,3 @@ class ProductForm(forms.ModelForm):
         model = Product
         exclude = ('created_at','updated_at')
 
-class UploadProductForm(forms.ModelForm):
-    class Meta:
-        model = ProductXls
-        exclude = ('created_at','updated_at','user','is_upload')
